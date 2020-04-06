@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DomainController@create')->name('domains.create');
+
+Route::get('/domains', 'DomainController@index')->name('domains.index');
+
+Route::get('/domains/{id}', 'DomainController@show')->name('domains.show');
+
+Route::post('/domains', 'DomainController@store')->name('domains.store');
