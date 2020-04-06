@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Hexlet Blog - @yield('title')</title>
+    <title>@yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token" />
   </head>
@@ -22,13 +22,16 @@
           <a class="nav-link" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Domains</a>
+          <a class="nav-link" href="{{ route('domains.index')}}">Domains</a>
         </li>
       </ul>
     </div>
     <h1>Page Analyzer</h1>
     <h6>Check web pages for free</h6>
-    <form class="form-inline">
+    <div>
+      @yield('content')
+    </div>
+<!--     <form class="form-inline">
       <div class="form-group mb-2">
         <label for="staticEmail2" class="sr-only">Email</label>
         <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
@@ -38,7 +41,7 @@
         <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
       </div>
       <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
-    </form>
+    </form> -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
