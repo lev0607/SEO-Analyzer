@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use URL;
 
 class DomainController extends Controller
 {
-	// protected $fillable = ['name', 'body'];
-
     public function index()
     {
-        $urls = DB::table('domains')->get();
+        $urls = DB::table('domains')->paginate(15);
         return view('domain.index', compact('urls'));
     }
 
@@ -23,21 +22,21 @@ class DomainController extends Controller
 
     public function store(Request $request)
     {
-        // Проверка введённых данных
-        // Если будут ошибки, то возникнет исключение
-        // Иначе возвращаются данные формы
-        $url = $request->input('url');
-        $data = $this->validate($request, [
-            'url' => 'required'
+        $this->validate($request, [
+            'url' => 'required|url|unique:domains,name'
         ]);
 
-		$currentDate = Carbon::now();
+        $url = $request->input('url');
+        $un = new URL\Normalizer($url);
+        $normalizeUrl = $un->normalize();
 
-		DB::table('domains')->insertGetId([
-			'name' => $url,
+        $currentDate = Carbon::now();
+
+        DB::table('domains')->insertGetId([
+            'name' => $normalizeUrl,
             'created_at' => $currentDate,
             'updated_at' => $currentDate
-		]);
+        ]);
 
         session()->flash('status', 'Task was successful!');
         

@@ -16,10 +16,10 @@
     <div class="main-nav">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Analyzer</a>
+          <a class="nav-link active" href="/">Analyzer</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('domains.index')}}">Domains</a>
