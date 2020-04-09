@@ -45,7 +45,12 @@ class DomainController extends Controller
 
     public function show($id)
     {
-        $url = DB::table('domains')->find($id);
-        return view('domain.show', compact('url'));
+        $domain = DB::table('domains')->find($id);
+
+        if (!$domain) {
+            return abort(404);
+        }
+
+        return view('domain.show', compact('domain'));
     }
 }
