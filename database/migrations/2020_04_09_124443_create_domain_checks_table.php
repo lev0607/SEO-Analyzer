@@ -15,9 +15,8 @@ class CreateDomainChecksTable extends Migration
     {
         Schema::create('domain_checks', function (Blueprint $table) {
             $table->id();
-            $table->integer('domain_id')->unsigned();
-            $table->foreign('domain_id')->references('id')->on('domains');
-            $table->integer('status_code');
+            $table->integer('domain_id');
+            $table->integer('status_code')->nullable();
             $table->text('h1')->nullable();
             $table->text('keywords')->nullable();
             $table->text('description')->nullable();

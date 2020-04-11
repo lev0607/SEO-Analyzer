@@ -20,3 +20,5 @@ Route::get('/domains', 'DomainController@index')->name('domains.index');
 Route::get('/domains/{id}', 'DomainController@show')->name('domains.show');
 
 Route::post('/', 'DomainController@store')->name('domains.store');
+
+Route::post('/domains/{id}', 'DomainCheckController@store')->name('domain_checks.store');

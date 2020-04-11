@@ -11,8 +11,14 @@ class DomainController extends Controller
 {
     public function index()
     {
-        $urls = DB::table('domains')->paginate(15);
-        return view('domain.index', compact('urls'));
+
+        $domains = DB::table('domain_checks')
+            ->join('domains', 'domains.id', '=', 'domain_checks.domain_id')
+            ->select('domains.id', 'domains.name', 'domain_checks.created_at')
+            ->groupBy('domain_id')
+            ->paginate(15);
+
+        return view('domain.index', compact('domains'));
     }
 
     public function create()
@@ -23,12 +29,19 @@ class DomainController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'url' => 'required|url|unique:domains,name'
+            'url' => 'required|url'
         ]);
 
         $url = $request->input('url');
         $un = new URL\Normalizer($url);
         $normalizeUrl = $un->normalize();
+
+        $domain = DB::table('domains')->where('name', $normalizeUrl)->first();
+
+        if ($domain) {
+            session()->flash('status', 'Url already exists!');
+            return redirect()->route('domains.show', ['id' => $domain->id]);
+        }
 
         $currentDate = Carbon::now();
 
@@ -40,17 +53,20 @@ class DomainController extends Controller
 
         session()->flash('status', 'Task was successful!');
         
-        return redirect()->route('domains.create');
+        $domain = DB::table('domains')->latest()->first();
+
+        return redirect()->route('domains.show', ['id' => $domain->id]);
     }
 
     public function show($id)
     {
         $domain = DB::table('domains')->find($id);
+        $domain_checks = DB::table('domain_checks')->where('domain_id', $id)->latest()->get();
 
         if (!$domain) {
             return abort(404);
         }
 
-        return view('domain.show', compact('domain'));
+        return view('domain.show', compact('domain', 'domain_checks'));
     }
 }
