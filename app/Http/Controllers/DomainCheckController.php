@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use DiDom\Document;
 
 class DomainCheckController extends Controller
 {
@@ -28,11 +29,20 @@ class DomainCheckController extends Controller
             return back();
         }
 
+        $document = new Document($domain->name, true);
+
+        $h1 = $document->first('h1')->text();
+        $description = $document->first('meta[name="description"]')->attr('content');
+        $keywords = $document->first('meta[name="keywords"]')->attr('content');
+
         $currentDate = Carbon::now();
 
         DB::table('domain_checks')->insertGetId([
             'domain_id' => $id,
             'status_code' => $res,
+            'h1' => $h1,
+            'keywords' => $keywords,
+            'description' => $description,
             'created_at' => $currentDate,
             'updated_at' => $currentDate
         ]);

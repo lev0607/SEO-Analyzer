@@ -35,7 +35,9 @@
     	@foreach ($domain_checks as $domain_check)
     	    <h6>{{$domain_check->id}}</h6>
             <h6>{{$domain_check->status_code}}</h6>
-    	    <h4>{{$domain_check->domain_id}}</h4>
+            <h6>{{$domain_check->h1}}</h6>
+            <h6>{{$domain_check->description}}</h6>
+            <h6>{{$domain_check->keywords}}</h6>
     	    <p>{{$domain_check->created_at}}</p>
     	@endforeach
     @endisset
