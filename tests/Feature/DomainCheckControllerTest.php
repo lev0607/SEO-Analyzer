@@ -13,10 +13,12 @@ class DomainCheckControllerTest extends TestCase
 {
     public function testStore()
     {
+
+        $html = file_get_contents('./tests/fixtures/test.html');
         $url = $this->faker->url;
 
         Http::fake([
-            $url => Http::response('Hello World', 200, ['Headers'])
+            $url => Http::response($html, 200)
         ]);
 
         $currentDate = Carbon::now();
@@ -29,6 +31,11 @@ class DomainCheckControllerTest extends TestCase
 
         $response = $this->post(route('domain_checks.store', $id));
         $response->assertStatus(302);
-        $this->assertDatabaseHas('domain_checks', ['status_code' => 200]);
+        $this->assertDatabaseHas('domain_checks', [
+            'status_code' => 200,
+            'h1' => 'This is h1',
+            'keywords' => 'This is keywords',
+            'description' => 'This is description'
+        ]);
     }
 }

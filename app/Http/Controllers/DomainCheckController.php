@@ -29,7 +29,7 @@ class DomainCheckController extends Controller
             return back();
         }
 
-        $document = new Document($domain->name, true);
+        $document = new Document($response->body());
 
         $h1 = $document->first('h1')->text();
         $description = $document->first('meta[name="description"]')->attr('content');
