@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use URL;
 
 class DomainController extends Controller
@@ -14,7 +15,7 @@ class DomainController extends Controller
 
         $domains = DB::table('domain_checks')
             ->join('domains', 'domains.id', '=', 'domain_checks.domain_id')
-            ->select('domains.id', 'domains.name', 'domain_checks.created_at')
+            ->select('domains.id', 'domains.name', 'domain_checks.created_at', 'domain_checks.status_code')
             ->groupBy('domain_id')
             ->paginate(15);
 
@@ -64,6 +65,7 @@ class DomainController extends Controller
         $domain_checks = DB::table('domain_checks')->where('domain_id', $id)->latest()->get();
 
         if (!$domain) {
+            Log::info("domains.id - {$id} not found");
             return abort(404);
         }
 

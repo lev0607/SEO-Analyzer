@@ -34,6 +34,7 @@
  	@isset($domain_checks)
     	@foreach ($domain_checks as $domain_check)
     	    <h6>{{$domain_check->id}}</h6>
+            <h6>{{$domain_check->status_code}}</h6>
     	    <h4>{{$domain_check->domain_id}}</h4>
     	    <p>{{$domain_check->created_at}}</p>
     	@endforeach
