@@ -12,7 +12,7 @@ use Tests\TestCase;
 class DomainCheckControllerTest extends TestCase
 {
     public function testStore()
-    {    
+    {
         $url = $this->faker->url;
 
         Http::fake([
