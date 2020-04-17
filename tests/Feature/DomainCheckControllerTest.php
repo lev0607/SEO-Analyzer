@@ -13,7 +13,6 @@ class DomainCheckControllerTest extends TestCase
 {
     public function testStore()
     {
-
         $html = file_get_contents('./tests/fixtures/test.html');
         $url = $this->faker->url;
 

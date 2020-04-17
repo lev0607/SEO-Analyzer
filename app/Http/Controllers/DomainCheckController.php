@@ -31,9 +31,9 @@ class DomainCheckController extends Controller
 
         $document = new Document($response->body());
 
-        $h1 = $document->first('h1')->text();
-        $description = $document->first('meta[name="description"]')->attr('content');
-        $keywords = $document->first('meta[name="keywords"]')->attr('content');
+        $h1 = optional($document->first('h1'))->text();
+        $description = optional($document->first('meta[name="description"]'))->attr('content');
+        $keywords = optional($document->first('meta[name="keywords"]'))->attr('content');
 
         $currentDate = Carbon::now();
 
