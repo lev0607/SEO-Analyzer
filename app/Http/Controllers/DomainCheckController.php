@@ -25,7 +25,7 @@ class DomainCheckController extends Controller
             $res = $response->getStatusCode();
         } catch (\Exception $e) {
             Log::info($e->getMessage());
-            session()->flash('status', 'Something was wrong!');
+            session()->flash('status error', 'Something was wrong!');
             return back();
         }
 

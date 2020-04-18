@@ -15,7 +15,7 @@ class DomainController extends Controller
 
         $domain_checks = DB::table('domain_checks')
             ->select('domain_id', 'status_code', 'created_at')
-            ->whereIn(DB::raw('(`domain_id`, `created_at`)'), function ($query) {
+            ->whereIn(DB::raw('(domain_id, created_at)'), function ($query) {
                 $query->select('domain_id', DB::raw('max(created_at)'))
                 ->from('domain_checks')
                 ->groupBy('domain_id');
