@@ -22,12 +22,13 @@ class DomainCheckController extends Controller
 
         try {
             $response = Http::get($domain->name);
-            $res = $response->getStatusCode();
         } catch (\Exception $e) {
             Log::info($e->getMessage());
             session()->flash('status error', 'Something was wrong!');
             return back();
         }
+
+        $statusCode = $response->getStatusCode();
 
         $document = new Document($response->body());
 
@@ -39,7 +40,7 @@ class DomainCheckController extends Controller
 
         DB::table('domain_checks')->insertGetId([
             'domain_id' => $id,
-            'status_code' => $res,
+            'status_code' => $statusCode,
             'h1' => $h1,
             'keywords' => $keywords,
             'description' => $description,

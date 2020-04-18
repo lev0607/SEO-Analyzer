@@ -17,7 +17,7 @@
 		        	    <th>Created at</th>
 		        	</tr>
 		    	</thead>
-		    @foreach ($domains as $domain)
+		    @foreach ($domainsData as $domain)
 		    	<tr>
 		    		<td>{{$domain->id}}</td>
 		        	<td><a href="{{ route('domains.show', ['id' => $domain->id]) }}">{{$domain->name}}</a></td>

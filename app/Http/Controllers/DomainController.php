@@ -12,7 +12,6 @@ class DomainController extends Controller
 {
     public function index()
     {
-
         $domain_checks = DB::table('domain_checks')
             ->select('domain_id', 'status_code', 'created_at')
             ->whereIn(DB::raw('(domain_id, created_at)'), function ($query) {
@@ -25,7 +24,7 @@ class DomainController extends Controller
 
         $domains = DB::table('domains')->select('id', 'name')->get();
 
-        $domains = $domains->map(function ($item, $key) use ($domain_checks) {
+        $domainsData = $domains->map(function ($item, $key) use ($domain_checks) {
             $item->status_code = null;
             $item->created_at = null;
             if ($item_domain_checks = $domain_checks->firstWhere('domain_id', $item->id)) {
@@ -34,7 +33,7 @@ class DomainController extends Controller
             }
             return $item;
         });
-        return view('domain.index', compact('domains'));
+        return view('domain.index', compact('domainsData'));
     }
 
 
