@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbe182930ed4fc5a9f983f9c132cb83e",
+    "content-hash": "a1a6bba4baad06b5cefef7348712e487",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2062,6 +2062,56 @@
                 "uuid"
             ],
             "time": "2020-02-21T04:36:14+00:00"
+        },
+        {
+            "name": "spatie/laravel-flash",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-flash.git",
+                "reference": "4d7264ca3dc9447e4f88bdcfbb7be8168935b4b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-flash/zipball/4d7264ca3dc9447e4f88bdcfbb7be8168935b4b6",
+                "reference": "4d7264ca3dc9447e4f88bdcfbb7be8168935b4b6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "^5.5|^5.6|^5.7|^5.8|^6.0|^7.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.5|^3.6|^3.7|^3.8|^4.0|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Flash\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A lightweight package to flash messages",
+            "homepage": "https://github.com/spatie/laravel-flash",
+            "keywords": [
+                "laravel-flash",
+                "spatie"
+            ],
+            "time": "2020-04-06T14:22:04+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

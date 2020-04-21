@@ -4,16 +4,6 @@
 
 @section('content')
 <div class="container-lg">
-    @if ($flash = session('status'))
-        <div class="alert alert-success" role="alert">
-             {{ $flash }}
-        </div>
-    @endif
-    @if ($flash = session('status error'))
-        <div class="alert alert-danger" role="alert">
-             {{ $flash }}
-        </div>
-    @endif
     <h2>Site: {{$domain->name}}</h2>
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-nowrap">

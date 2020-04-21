@@ -57,7 +57,7 @@ class DomainController extends Controller
         $domain = DB::table('domains')->where('name', $normalizeUrl)->first();
 
         if ($domain) {
-            session()->flash('status', 'Url already exists!');
+            flash('Url already exists!', 'alert alert-success');
             return redirect()->route('domains.show', ['id' => $domain->id]);
         }
 
@@ -69,7 +69,7 @@ class DomainController extends Controller
             'updated_at' => $currentDate
         ]);
 
-        session()->flash('status', 'Task was successful!');
+        flash('Task was successful!', 'alert alert-success');
         
         $domain = DB::table('domains')->latest()->first();
 
@@ -102,7 +102,7 @@ class DomainController extends Controller
             $response = Http::get($domain->name);
         } catch (\Exception $e) {
             Log::info($e->getMessage());
-            session()->flash('status error', 'Something was wrong!');
+            flash('Something was wrong!', 'alert alert-danger');
             return back();
         }
 
@@ -126,7 +126,7 @@ class DomainController extends Controller
             'updated_at' => $currentDate
         ]);
 
-        session()->flash('status', 'Website has been checked!');
+        flash('Website has been checked!', 'alert alert-success');
 
         return back();
     }

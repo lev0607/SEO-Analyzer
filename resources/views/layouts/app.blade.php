@@ -28,6 +28,21 @@
       </nav>
     </header>
     <main class="flex-grow-1">
+<!--       @if ($flash = session('status'))
+          <div class="alert alert-success" role="alert">
+               {{ $flash }}
+          </div>
+      @endif
+      @if ($flash = session('status error'))
+          <div class="alert alert-danger" role="alert">
+               {{ $flash }}
+          </div>
+      @endif -->
+      @if (flash()->message)
+        <div class="{{ flash()->class }}">
+          {{ flash()->message }}
+        </div>
+      @endif
       @yield('content')
     </main>
     <!-- Optional JavaScript -->
