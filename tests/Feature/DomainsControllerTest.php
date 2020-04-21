@@ -3,40 +3,74 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class DomainsControllerTest extends TestCase
 {
-    protected $validUrl = ['url' => 'https://hexlet.io/'];
-    protected $invalidUrl = ['url' => 'hexlet.io/'];
 
     public function testCreate()
     {
         $response = $this->get(route('domains.create'));
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function testIndex()
     {
         $response = $this->get(route('domains.index'));
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function testStore()
     {
-        $this->post(route('domains.store'), $this->validUrl);
-        $this->assertDatabaseHas('domains', ['name' => $this->validUrl['url']]);
+        $url = $this->faker->url;
+        $response = $this->post(route('domains.store'), ['url' => $url]);
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
 
-        $this->post(route('domains.store'), $this->invalidUrl);
-        $this->assertDatabaseMissing('domains', ['name' => $this->invalidUrl['url']]);
+        $this->assertDatabaseHas('domains', ['name' => $url]);
     }
 
     public function testShow()
     {
-        $this->post(route('domains.store'), $this->validUrl);
+        $url = $this->faker->url;
+        $this->post(route('domains.store'), ['url' => $url]);
         $response = $this->get(route('domains.show', ['id' => 1]));
         
-        $this->assertStringContainsString($this->validUrl['url'], $response->getContent());
+        $this->assertStringContainsString($url, $response->getContent());
+    }
+
+    public function testChecks()
+    {
+        $html = file_get_contents('./tests/fixtures/test.html');
+        $url = $this->faker->url;
+
+        Http::fake([
+            $url => Http::response($html, 200)
+        ]);
+
+        $currentDate = Carbon::now();
+
+        $id = DB::table('domains')->insertGetId([
+            'name' => $url,
+            'created_at' => $currentDate,
+            'updated_at' => $currentDate
+        ]);
+
+        $response = $this->post(route('domains.checks', $id));
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
+
+        $this->assertDatabaseHas('domain_checks', [
+            'id' => $id,
+            'status_code' => 200,
+            'h1' => 'This is h1',
+            'keywords' => 'This is keywords',
+            'description' => 'This is description'
+        ]);
     }
 }
