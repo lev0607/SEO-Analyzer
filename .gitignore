@@ -8,6 +8,7 @@ page--analyzer
 .env
 .env.backup
 .phpunit.result.cache
+.phpintel
 Homestead.json
 Homestead.yaml
 npm-debug.log

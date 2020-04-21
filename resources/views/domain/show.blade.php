@@ -37,7 +37,7 @@
     </div>
     <div style="margin-bottom: 10px;">
         <h2 class="mt-5 mb-3">Checks</h2>
-        {{Form::open(['url' => route('domain_checks.store', ['id' => $domain->id])])}}
+        {{Form::open(['url' => route('domains.checks', ['id' => $domain->id])])}}
             {{Form::submit('Run check!', ['class' => 'btn btn-info'])}}
         {{Form::close()}}
     </div>
