@@ -15,7 +15,7 @@ class DomainController extends Controller
     public function index()
     {
         $domain_checks = DB::table('domain_checks')
-            ->distinct('domain_id')
+            ->select('domain_id', 'status_code', 'created_at')
             ->orderBy('domain_id')
             ->oldest()
             ->get()
