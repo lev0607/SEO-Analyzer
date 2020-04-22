@@ -17,12 +17,12 @@
 		        	    <th>Created at</th>
 		        	</tr>
 		    	</thead>
-		    @foreach ($domainsData as $domain)
+		    @foreach ($domains as $domain)
 		    	<tr>
 		    		<td>{{$domain->id}}</td>
 		        	<td><a href="{{ route('domains.show', ['id' => $domain->id]) }}">{{$domain->name}}</a></td>
-		        	<td>{{$domain->status_code}}</td>
-		        	<td>{{$domain->created_at}}</td>
+		        	<td>{{$domain_checks->get($domain->id) ? $domain_checks->get($domain->id)->status_code : ""}}</td>
+					<td>{{$domain_checks->get($domain->id) ? $domain_checks->get($domain->id)->created_at : ""}}</td>
 		        </tr>
 		    @endforeach
 		    </table>

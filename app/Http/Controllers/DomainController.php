@@ -15,27 +15,15 @@ class DomainController extends Controller
     public function index()
     {
         $domain_checks = DB::table('domain_checks')
-            ->select('domain_id', 'status_code', 'created_at')
-            ->whereIn(DB::raw('(domain_id, created_at)'), function ($query) {
-                $query->select('domain_id', DB::raw('max(created_at)'))
-                ->from('domain_checks')
-                ->groupBy('domain_id');
-            })
+            ->distinct('domain_id')
             ->orderBy('domain_id')
-            ->get();
+            ->oldest()
+            ->get()
+            ->keyBy('domain_id');
 
         $domains = DB::table('domains')->select('id', 'name')->get();
 
-        $domainsData = $domains->map(function ($item, $key) use ($domain_checks) {
-            $item->status_code = null;
-            $item->created_at = null;
-            if ($item_domain_checks = $domain_checks->firstWhere('domain_id', $item->id)) {
-                $item->status_code = $item_domain_checks->status_code ?? null;
-                $item->created_at = $item_domain_checks->created_at;
-            }
-            return $item;
-        });
-        return view('domain.index', compact('domainsData'));
+        return view('domain.index', compact('domains', 'domain_checks'));
     }
 
 
