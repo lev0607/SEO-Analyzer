@@ -100,9 +100,9 @@ class DomainController extends Controller
 
         try {
             $response = Http::get($domain->name);
-        } catch (\Exception $e) {
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
             Log::info($e->getMessage());
-            flash('Something was wrong!', 'alert alert-danger');
+            flash('This site can’t be reached. Server IP address could not be found!', 'alert alert-danger');
             return back();
         }
 
