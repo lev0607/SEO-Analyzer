@@ -65,12 +65,13 @@ class DomainController extends Controller
     public function show($id)
     {
         $domain = DB::table('domains')->find($id);
-        $domain_checks = DB::table('domain_checks')->where('domain_id', $id)->latest()->get();
 
         if (!$domain) {
             Log::info("domains.id - {$id} not found");
             return abort(404);
         }
+
+        $domain_checks = DB::table('domain_checks')->where('domain_id', $id)->latest()->get();
 
         return view('domain.show', compact('domain', 'domain_checks'));
     }
