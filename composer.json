@@ -14,10 +14,10 @@
         "glenscott/url-normalizer": "^1.4",
         "guzzlehttp/guzzle": "^6.3",
         "imangazaliev/didom": "^1.15",
+        "laracasts/flash": "^3.1",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.1",
-        "spatie/laravel-flash": "^1.3",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/http-foundation": "^5.0"
     },
