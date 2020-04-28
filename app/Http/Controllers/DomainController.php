@@ -45,7 +45,7 @@ class DomainController extends Controller
         $domain = DB::table('domains')->where('name', $normalizeUrl)->first();
 
         if ($domain) {
-            flash('Url already exists!', 'alert alert-success');
+            flash('Url already exists!')->success();
             return redirect()->route('domains.show', ['id' => $domain->id]);
         }
 
@@ -57,7 +57,7 @@ class DomainController extends Controller
             'updated_at' => $currentDate
         ]);
 
-        flash('Task was successful!', 'alert alert-success');
+        flash('Task was successful!')->success();
         
         $domain = DB::table('domains')->latest()->first();
 
@@ -90,7 +90,7 @@ class DomainController extends Controller
             $response = Http::get($domain->name);
         } catch (\Illuminate\Http\Client\ConnectionException $e) {
             Log::info($e->getMessage());
-            flash('This site can’t be reached. Server IP address could not be found!', 'alert alert-danger');
+            flash('This site can’t be reached. Server IP address could not be found!')->error();
             return back();
         }
 
@@ -114,7 +114,7 @@ class DomainController extends Controller
             'updated_at' => $currentDate
         ]);
 
-        flash('Website has been checked!', 'alert alert-success');
+        flash('Website has been checked!')->success();
 
         return back();
     }
