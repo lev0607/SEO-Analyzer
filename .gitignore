@@ -5,6 +5,7 @@ page--analyzer
 /storage/*.key
 /vendor
 /.phpintel
+storage/debugbar/
 .env
 .env.backup
 .phpunit.result.cache
